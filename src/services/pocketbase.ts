@@ -36,24 +36,24 @@ class PocketBaseService {
     private isAuthenticated = false;
 
     constructor() {
-        this.pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL || 'https://mimoi-game.pockethost.io');
+        this.pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL || 'https://pb.mimoimio.com');
         console.log('PocketBase initialized 🥴');
     }
 
     // Authentication with retry logic
     async authenticate(retryCount = 0): Promise<boolean> {
-        if (this.isAuthenticated) return true;
+        if (this.isAuthenticated) { console.log('already authenticated'); return true; }
 
         const maxRetries = 3;
         const retryDelay = 200; // 1 second
 
         try {
-            await this.pb.collection('_superusers').authWithPassword(
+            const authData = await this.pb.collection('_superusers').authWithPassword(
                 process.env.POCKETBASE_EMAIL || 'jafflewaffle@gmail.com',
                 process.env.POCKETBASE_PASSWORD || 'thisisnotmyrealpassword'
             );
             this.isAuthenticated = true;
-            // console.log('PocketBase authenticated:', authData);
+            console.log('PocketBase authenticated:' + authData);
             return true;
         } catch (error: unknown) {
             console.error(`PocketBase authentication failed (attempt ${retryCount + 1}):`, error);
