@@ -1,32 +1,42 @@
 "use client";
 
-import { useChatContext } from "@/components/ChatLayout";
+import ThreeJsCube from "@/components/ThreeJsCube";
 import { Button } from "@/components/ui/button";
-import { GithubIcon, MessageCircle, Plus } from "lucide-react";
+import { GithubIcon, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
-  const { createNewChat } = useChatContext();
-
   return (
-    <div className="flex-1 flex items-center justify-center bg-linear-30 from-background/95 to to-foreground/95">
-      <div className="text-center max-w-md">
-        <MessageCircle className="h-16 w-16 mx-auto mb-6 text-muted-foreground" />
-        <h1 className="text-3xl font-semibold mb-4">Welcome to MimoAi Chat</h1>
-        <p className="text-muted-foreground mb-8">
-          {"Skibidi Gyatt Rizzler Gurt: Sybau "}
-        </p>
-        <div className="flex gap-4 justify-center items-center">
-          <Button onClick={createNewChat} size="lg" className="gap-2">
-            <Plus className="h-5 w-5" />
-            Start New Chat
-          </Button>
-          <Link
-            className="rounded-full bg-background/90 flex items-center justify-center p-4 hover:bg-background/80 transition-colors"
-            href={"https://github.com/mimoimio/yet-another-openai-wrapper"}
-            target="_blank">
-            <GithubIcon className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-          </Link>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Three.js Background */}
+      <ThreeJsCube />
+
+      {/* Content Overlay */}
+      <div className="relative -z-10 flex items-center justify-center min-h-screen">
+        <div className="text-center max-w-lg p-8 bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10">
+          <Sparkles className="h-20 w-20 mx-auto mb-6 text-white animate-pulse" />
+          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+            Fake Front Page
+          </h1>
+          <p className="text-white/80 mb-8 text-lg">
+            Just vibing with a spinning cube while the real app lives on the preview branch 🎲
+          </p>
+          <div className="flex gap-4 justify-center items-center">
+            <Button
+              size="lg"
+              className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0"
+            >
+              <Sparkles className="h-5 w-5" />
+              Nothing Here
+            </Button>
+            <Link
+              className="rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center p-4 hover:bg-white/20 transition-all duration-300 border border-white/20"
+              href={"https://github.com/mimoimio/yet-another-openai-wrapper"}
+              target="_blank"
+            >
+              <GithubIcon className="h-6 w-6 text-white hover:text-purple-300 transition-colors" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
