@@ -8,7 +8,6 @@ import apiService from "@/services/api";
 import { useChatContext } from "@/components/ChatLayout";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
 
 export default function ChatPage() {
     const { chat_id } = useParams();
