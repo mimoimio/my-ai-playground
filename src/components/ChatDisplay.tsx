@@ -53,12 +53,19 @@ export function ChatDisplay({ messages, onSendMessage, onDeleteMessage, selected
         <div className="flex flex-col relative h-full bg-linear-30 from-background/95 to to-foreground/95">
             {/* Chat Messages */}
             <ScrollArea className="flex-1 min-h-0">
-                <div className="p-4">
+                <div className="p-2">
                     <div className="space-y-6 w-2xl max-w-[90dvw] mx-auto">
                         {messages.map((message) => (
                             <div key={message.msg_id}
-                                className={`flex gap-3 group ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                                {message.role === "assistant" && (
+                                className={`flex flex-col gap-1 group ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+
+                                {message.role === "user" ? (
+                                    <Avatar className="h-8 w-8 mt-1 ml-auto">
+                                        <AvatarFallback className="bg-secondary">
+                                            <User className="h-4 w-4" />
+                                        </AvatarFallback>
+                                    </Avatar>
+                                ) : (
                                     <Avatar className="h-8 w-8 mt-1">
                                         <AvatarFallback className="bg-primary text-primary-foreground">
                                             <Bot className="h-4 w-4" />
@@ -66,36 +73,19 @@ export function ChatDisplay({ messages, onSendMessage, onDeleteMessage, selected
                                     </Avatar>
                                 )}
 
-                                <div className={`flex flex-col gap-2 max-w-[90dvw]  ${message.role === "user" ? "items-end" : "items-start"}`}>
+                                <div className={`flex flex-col gap-1 max-w-[90dvw]  ${message.role === "user" ? "items-end" : "items-start"}`}>
                                     <div className="relative max-w-full">
-                                        <Card className={`p-4 ${message.role === "user" ? "bg-foreground/50 ml-12" : "bg-muted/50 mr-12"}`}>
+                                        <Card className={`p-2 ${message.role === "user" ? "bg-foreground/50 ml-12" : "bg-muted/50 mr-12"}`}>
                                             <article className={`prose dark:prose-invert ${message.role === "user" ? "text-background" : ""}`}>
                                                 <MarkdownViewer source={message.content} />
                                                 {/* <div className="whitespace-pre-wrap text-sm leading-relaxed">
                                                 </div> */}
                                             </article>
 
-
-                                            {/* <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                                {message.role === "assistant" && (
-                                                    <div className="flex gap-1">
-                                                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                                                            <Copy className="h-3 w-3" />
-                                                        </Button>
-                                                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                                                            <ThumbsUp className="h-3 w-3" />
-                                                        </Button>
-                                                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                                                            <ThumbsDown className="h-3 w-3" />
-                                                        </Button>
-                                                    </div>
-                                                )}
-                                            </div> */}
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className={`absolute top-4 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity ${message.role === "user" ? "-left-0" : "-right-0"
-                                                    }`}
+                                                className={`absolute top-4 h-6 w-6 opacity-25 group-hover:opacity-100 transition-opacity ${message.role === "user" ? "-left-0" : "-right-0"}`}
                                                 onClick={() => handleDeleteMessage(message.msg_id)}
                                             >
                                                 <Trash2 className="h-3 w-3 text-red-500" />
@@ -104,13 +94,6 @@ export function ChatDisplay({ messages, onSendMessage, onDeleteMessage, selected
                                     </div>
                                 </div>
 
-                                {message.role === "user" && (
-                                    <Avatar className="h-8 w-8 mt-1">
-                                        <AvatarFallback className="bg-secondary">
-                                            <User className="h-4 w-4" />
-                                        </AvatarFallback>
-                                    </Avatar>
-                                )}
                             </div>
                         ))}
 
